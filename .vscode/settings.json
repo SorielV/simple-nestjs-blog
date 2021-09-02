@@ -1,0 +1,9 @@
+{
+    "editor.fontFamily": "Jetbrains Mono",
+    "editor.renderWhitespace": "all",
+    "cSpell.words": [
+        "nestjs",
+        "prebuild",
+        "singup"
+    ]
+}
