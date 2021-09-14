@@ -5,7 +5,6 @@ import { PassportModule } from '@nestjs/passport';
 import { JWTConfig } from 'src/config/config';
 import { DatabaseModule } from 'src/database/database.module';
 import { MailModule } from 'src/mail/mail.module';
-import { MailService } from 'src/mail/mail.service';
 import { UserTokensModule } from 'src/user-tokens/user-tokens.module';
 import { UsersModule } from 'src/users/users.module';
 import { AuthController } from './auth.controller';

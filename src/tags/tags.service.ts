@@ -46,6 +46,8 @@ export class TagsService {
           },
         }),
       },
+      limit: options.perPage,
+      offset: (options.page - 1) * options.perPage,
     });
 
     return {
@@ -82,24 +84,24 @@ export class TagsService {
   }
 
   async findByTag(
-    id: number,
+    id: string,
     options?: Omit<IFindByOptions, 'rejectOnEmpty'> & {
       rejectOnEmpty: false;
     },
   ): Promise<TagEntity | null>;
 
   async findByTag(
-    id: number,
+    id: string,
     options?: Omit<IFindByOptions, 'rejectOnEmpty'> & { rejectOnEmpty: true },
   ): Promise<TagEntity>;
 
   async findByTag(
-    tag: number,
+    tag: string,
     options?: IFindByOptions,
   ): Promise<TagEntity | null> {
     return this.tagEntity.scope(options?.scope).findOne({
       where: {
-        id: tag,
+        tag: Like(tag),
       },
       rejectOnEmpty: options?.rejectOnEmpty ?? false,
     });
@@ -123,6 +125,7 @@ export class TagsService {
         ignoreDuplicates: true,
       },
     );
+
     return [...tags, ...tagsCreated];
   }
 

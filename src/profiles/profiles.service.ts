@@ -98,13 +98,18 @@ export class ProfilesService {
       rejectOnEmpty: options?.rejectOnEmpty ?? false,
       raw: true,
     });
-    return profile.userId ?? null;
+    return profile?.userId ?? null;
   }
 
-  async updateById(id: number, data: UpdateProfileDto) {
-    const profile = await this.findById(id, { rejectOnEmpty: true });
-    profile.set(data);
-    await profile.save();
+  async updateById(id: number, data: UpdateProfileDto & { userId: number }) {
+    const profile = await this.profileEntity.findOne({
+      where: {
+        id,
+        userId: data.userId,
+      },
+      rejectOnEmpty: true,
+    });
+    await profile.set(data).save();
     return profile;
   }
 }

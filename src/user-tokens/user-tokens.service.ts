@@ -31,7 +31,7 @@ export class UserTokensService {
         },
       });
 
-    if (created) return;
+    if (created) return verificationToken;
 
     return verificationToken
       .set({
@@ -60,7 +60,7 @@ export class UserTokensService {
         },
       });
 
-    if (created) return;
+    if (created) return verificationToken;
 
     return verificationToken
       .set({
@@ -73,7 +73,7 @@ export class UserTokensService {
   }
 
   async findAndValidateVerificationToken(userId: number, value: string) {
-    const verification = await this.userTokenEntity.findOne({
+    return this.userTokenEntity.findOne({
       where: {
         userId,
         value,
@@ -84,12 +84,6 @@ export class UserTokensService {
       },
       rejectOnEmpty: new Error('Verification token invalid or expired'),
     });
-
-    if (!verification || verification.expiresAt < new Date()) {
-      throw new Error('Verification token invalid or expired');
-    }
-
-    return verification;
   }
 
   async findAndValidatePasswordResetToken(userId: number, value: string) {

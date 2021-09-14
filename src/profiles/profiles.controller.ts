@@ -26,8 +26,8 @@ export class ProfilesController {
   async updateById(
     @Param('id') id: number,
     @Body() data: UpdateProfileDto,
-    @Req() { user: { profileId } }: IAuthRequest,
+    @Req() { user: { profileId, userId } }: IAuthRequest,
   ) {
-    return this.profilesService.updateById(profileId, data);
+    return this.profilesService.updateById(profileId, { ...data, userId });
   }
 }

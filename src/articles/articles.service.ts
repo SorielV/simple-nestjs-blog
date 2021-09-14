@@ -39,7 +39,7 @@ export class ArticlesService {
         where: {
           ...(options.q && { slug: Like(options.q) }),
         },
-        limit: options.page,
+        limit: options.perPage,
         offset: (options.page - 1) * options.perPage,
         nest: true,
         raw: true,
@@ -65,7 +65,7 @@ export class ArticlesService {
           ...(options.q && { slug: Like(options.q) }),
           userId: options.userId,
         },
-        limit: options.page,
+        limit: options.perPage,
         offset: (options.page - 1) * options.perPage,
         nest: true,
         raw: true,

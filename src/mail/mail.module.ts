@@ -1,3 +1,4 @@
+import { join } from 'path';
 import { Module } from '@nestjs/common';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { MailService } from './mail.service';
@@ -12,6 +13,8 @@ import { MailConfig } from 'src/config/config';
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => {
         const mailConfig = configService.get<MailConfig>('mail');
+        const dir = join(__dirname, 'templates');
+
         return {
           transport: {
             host: mailConfig.host,
@@ -25,8 +28,8 @@ import { MailConfig } from 'src/config/config';
             from: mailConfig.from,
           },
           template: {
-            dir: `${__dirname}/templates`,
             adapter: new PugAdapter(),
+            dir,
             options: {
               strict: true,
             },

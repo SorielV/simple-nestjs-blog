@@ -44,7 +44,7 @@ export default (): Config => ({
   },
   database: {
     host: process.env.BD_HOST,
-    port: +process.env.DB_PORT || 5432,
+    port: +process.env.DB_PORT,
     username: process.env.DB_USER,
     password: process.env.DB_PWD,
     database: process.env.DB_NAME,
@@ -54,14 +54,14 @@ export default (): Config => ({
     expirationTime: +process.env.JWT_EXPIRATION_TIME,
   },
   mail: {
-    host: '127.0.0.1',
-    port: 1000,
-    user: 'foo',
-    password: 'bar',
-    from: 'no-reply foo@foo.com',
+    host: process.env.MAIL_HOST,
+    port: +process.env.MAIL_PORT,
+    user: process.env.MAIL_AUTH_USER,
+    password: process.env.MAIL_AUTH_PASSWORD,
+    from: process.env.MAIL_FROM_MSG,
   },
   redis: {
-    host: '127.0.0.1',
-    port: 7001,
+    host: process.env.REDIS_HOST,
+    port: +process.env.REDIS_PORT,
   },
 });

@@ -40,7 +40,7 @@ describe('ProfilesController', () => {
 
   describe('updateById', () => {
     it('should return users profile', async () => {
-      const id = 1;
+      const profileId = 1;
       const userId = 1;
       const updateByIdSpy = jest.spyOn(profilesService, 'updateById');
       const data = {
@@ -51,7 +51,9 @@ describe('ProfilesController', () => {
       };
       updateByIdSpy.mockResolvedValueOnce({} as any);
       await expect(
-        controller.updateById(id, data, { user: { userId } } as any),
+        controller.updateById(profileId, data, {
+          user: { userId, profileId },
+        } as any),
       ).resolves.toBeDefined();
     });
   });

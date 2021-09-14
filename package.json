@@ -50,6 +50,7 @@
     "slugify": "^1.6.0"
   },
   "devDependencies": {
+    "@compodoc/compodoc": "^1.1.14",
     "@nestjs/cli": "^8.0.0",
     "@nestjs/schematics": "^8.0.0",
     "@nestjs/testing": "^8.0.0",
@@ -90,6 +91,12 @@
     },
     "collectCoverageFrom": [
       "**/*.(t|j)s"
+    ],
+    "coveragePathIgnorePatterns": [
+      ".dto.ts$",
+      ".provider.ts$",
+      ".module.ts$",
+      ".spec.ts$"
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"

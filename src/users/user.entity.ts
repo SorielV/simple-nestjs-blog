@@ -86,12 +86,9 @@ export class UserEntity
 
   @BeforeSave
   static async setPasswordHash(instance: UserEntity): Promise<void> {
-    const hashedPassword = await UserEntity.generatePasswordHash(
+    instance.password = await UserEntity.generatePasswordHash(
       instance.password,
     );
-    instance.set({
-      password: hashedPassword,
-    });
   }
 
   static async comparePassword(

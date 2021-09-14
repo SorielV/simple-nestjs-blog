@@ -41,7 +41,7 @@ export class UsersService {
         rejectOnEmpty: err,
       });
 
-    const match = await UserEntity.comparePassword(user.password, password);
+    const match = await UserEntity.comparePassword(password, user.password);
     if (!match) {
       throw err;
     }

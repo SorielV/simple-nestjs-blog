@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { ISession } from '../common/interface';
 import { MailService } from '../mail/mail.service';
@@ -33,6 +32,7 @@ export class AuthService {
 
   async create(data: CreateUserDto): Promise<ISession> {
     const user = await this.usersService.create(data);
+    this.sendUserConfirmationToken(user);
     return AuthService.getSessionFromUser(user);
   }
 
@@ -44,12 +44,12 @@ export class AuthService {
   async sendUserConfirmationToken(user: UserEntity) {
     const { value: token } =
       await this.userTokensService.createVerificationToken(user.id);
-    await this.mailService.sendVerification(user, token);
+    this.mailService.sendVerification(user, token);
   }
 
   async sendPasswordResetToken(user: UserEntity) {
     const { value: token } =
       await this.userTokensService.createPasswordResetToken(user.id);
-    await this.mailService.sendPasswordRecovery(user, token);
+    this.mailService.sendPasswordRecovery(user, token);
   }
 }

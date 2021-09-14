@@ -20,8 +20,7 @@ export class AuthController {
   @Post('login')
   @HttpCode(200)
   @UseGuards(LocalAuthGuard)
-  async logIn(@Req() request: IAuthRequest) {
-    const { user } = request;
+  async logIn(@Req() { user }: IAuthRequest) {
     return {
       ...user,
       token: await this.authService.generateJWTToken(user),
